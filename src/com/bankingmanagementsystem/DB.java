@@ -6,16 +6,16 @@ import java.sql.SQLException;
 
 public class DB {
     private static Connection connection = null;
+    private static final String url = "jdbc:mysql://localhost:3306/banking_system";
+    private static final String username = "root";
+    private static final String password = "Saman@12345";
     public  DB() {}
 
+    // Method to establish a database connection
     public static Connection getConnection() {
         if (connection != null) {
             return connection;
         }
-
-        String url = "jdbc:mysql://localhost:3306/banking_system";
-        String username = "root";
-        String password = "Saman@12345";
 
         try {
             Class.forName("com.mysql.cj.jdbc.Driver"); // Load driver explicitly
