@@ -5,8 +5,8 @@ import java.sql.SQLException;
 import java.util.Scanner;
 
 public class User {
-    private Connection connection;
-    private Scanner scanner;
+    private final Connection connection;
+    private final Scanner scanner;
 
     public User(Connection connection, Scanner scanner) {
         this.connection = connection;
@@ -24,9 +24,8 @@ public class User {
             System.out.println("User already exists");
             return;
         }
-        String query = "INSERT INTO users (name,email,password) VALUES (?,?,?)";
         try {
-            var statement = connection.prepareStatement(query);
+            var statement = connection.prepareStatement(Queries.USER_REGISTER);
             statement.setString(1, name);
             statement.setString(2, email);
             statement.setString(3, password);
@@ -39,7 +38,7 @@ public class User {
 
 
         } catch (SQLException e) {
-            e.printStackTrace();
+            System.out.println(e.getMessage());
         }
     }
 
@@ -51,9 +50,8 @@ public class User {
         System.out.println("Enter user password: ");
         String password = scanner.nextLine();
         if (user_exists(email)) {
-            String query = "SELECT * FROM users WHERE email = ? AND password = ?";
             try {
-                var statement = connection.prepareStatement(query);
+                var statement = connection.prepareStatement(Queries.USER_LOGIN);
                 statement.setString(1, email);
                 statement.setString(2, password);
                 var result = statement.executeQuery();
@@ -65,7 +63,8 @@ public class User {
                     return null;
                 }
             } catch (SQLException e) {
-                e.printStackTrace();
+                System.out.println(e.getMessage());
+
             }
         } else {
             System.out.println("User does not exist");
@@ -77,14 +76,13 @@ public class User {
 
 
     public boolean user_exists(String email) {
-        String query = "SELECT * FROM users WHERE email = ?";
         try {
-            var statement = connection.prepareStatement(query);
+            var statement = connection.prepareStatement(Queries.USER_BY_EMAIL);
             statement.setString(1, email);
             var result = statement.executeQuery();
             return result.next();
         } catch (SQLException e) {
-            e.printStackTrace();
+            System.out.println(e.getMessage());
         }
         return false;
     }

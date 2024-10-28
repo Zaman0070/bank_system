@@ -4,26 +4,10 @@ import java.sql.*;
 
 
 public class BankingSystem {
-
-
-    private static final String url = "jdbc:mysql://localhost:3306/banking_system";
-    private static final String username = "root";
-    private static final String password = "Saman@12345";
-
-    public static void main(String[] args) throws ClassNotFoundException, SQLException {
-
-        ////////// 1. Load the driver
-        try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-        } catch (ClassNotFoundException e) {
-            System.out.println(e.getMessage());
-        }
-
-        ////////// 2. Create a connection
-
+    public static void main(String[] args)  {
         Scanner scanner = new Scanner(System.in);
         try {
-            Connection connection = DriverManager.getConnection(url, username, password);
+            Connection connection = DB.getConnection();
             Scanner input = new Scanner(System.in);
             User user = new User(connection, input);
             AccountManager accountManager = new AccountManager(connection, input);

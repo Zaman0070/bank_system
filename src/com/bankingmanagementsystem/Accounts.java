@@ -4,8 +4,8 @@ import java.sql.Connection;
 import java.util.Scanner;
 
 public class Accounts {
-    private Connection connection;
-    private Scanner scanner;
+    private final Connection connection;
+    private final Scanner scanner;
 
     public Accounts(Connection connection, Scanner scanner) {
         this.connection = connection;
@@ -26,17 +26,16 @@ public class Accounts {
         if(existingAccountNo != 0){
             if (accountExists(existingAccountNo)) {
                 System.out.println("Account already exists");
-                throw new RuntimeException("Account already exists");
+                return existingAccountNo;
             }
         }
 
 
 
-        String query = "INSERT INTO accounts (account_no, name, email, balance, pin) VALUES (?, ?, ?, ?, ?)";
 
         try {
             long account_no = generateAccountNo();
-            var statement = connection.prepareStatement(query);
+            var statement = connection.prepareStatement(Queries.ACCOUNT_OPEN);
             statement.setLong(1, account_no);
             statement.setString(2, name);
             statement.setString(3, email);
@@ -50,7 +49,7 @@ public class Accounts {
                 throw new RuntimeException("Failed to open account");
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            System.out.println(e.getMessage());
         }
         throw new RuntimeException("Failed to open account");
     }
@@ -59,44 +58,42 @@ public class Accounts {
 
 
     public long getAccountNo(String email) {
-        String query = "SELECT account_no FROM accounts WHERE email = ?";
         try {
-            var statement = connection.prepareStatement(query);
+            var statement = connection.prepareStatement(Queries.ACCOUNT_BY_EMAIL);
             statement.setString(1, email);
             var result = statement.executeQuery();
             if (result.next()) {
                 return result.getLong("account_no");
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            System.out.println(e.getMessage());
         }
         return 0;
     }
 
 
 public long generateAccountNo(){
-    String query = "SELECT MAX(account_no) FROM accounts";
     try {
-        var statement = connection.prepareStatement(query);
+        var statement = connection.prepareStatement(Queries.GENERATE_ACCOUNT_NO);
         var result = statement.executeQuery();
         if (result.next()) {
             return result.getLong(1) + 1;
         }
     } catch (Exception e) {
-        e.printStackTrace();
+        System.out.println(e.getMessage());
     }
     return 1000000000;
 }
 
     public boolean accountExists(long account_no) {
-        String query = "SELECT * FROM accounts WHERE account_no = ?";
+
         try {
-            var statement = connection.prepareStatement(query);
+            var statement = connection.prepareStatement(Queries.ACCOUNT_BY_NO);
             statement.setLong(1, account_no);
             var result = statement.executeQuery();
             return result.next();
         } catch (Exception e) {
-            e.printStackTrace();
+            System.out.println(e.getMessage());
         }
         return false;
     }

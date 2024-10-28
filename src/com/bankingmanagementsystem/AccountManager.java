@@ -4,8 +4,8 @@ import java.util.*;
 
 
 public class AccountManager {
-    private Connection connection;
-    private Scanner scanner;
+    private final Connection connection;
+    private final Scanner scanner;
 
     public AccountManager(Connection connection, Scanner scanner) {
         this.connection = connection;
@@ -19,20 +19,16 @@ public class AccountManager {
         scanner.nextLine();
         System.out.println("Enter your pin: ");
         String pin = scanner.nextLine();
-
-        String query = "SELECT balance FROM accounts WHERE account_no = ? AND pin = ?";
-        String creditQuery = "UPDATE accounts SET balance = balance + ? WHERE account_no = ?";
-
         try {
             connection.setAutoCommit(false);
             if (account_no != 0) {
-                PreparedStatement statement = connection.prepareStatement(query);
+                PreparedStatement statement = connection.prepareStatement(Queries.SELECT_BALANCE_BY_NO_AND_PIN);
                 statement.setLong(1, account_no);
                 statement.setString(2, pin);
                 ResultSet result = statement.executeQuery();
 
                 if (result.next()) {
-                    PreparedStatement creditStatement = connection.prepareStatement(creditQuery);
+                    PreparedStatement creditStatement = connection.prepareStatement(Queries.CREDIT_AMOUNT);
                     creditStatement.setDouble(1, amount);
                     creditStatement.setLong(2, account_no);
                     int rows = creditStatement.executeUpdate();
@@ -49,17 +45,17 @@ public class AccountManager {
                 }
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            System.out.println(e.getMessage());
             try {
                 connection.rollback();
             } catch (SQLException rollbackException) {
-                rollbackException.printStackTrace();
+                System.out.println(rollbackException.getMessage());
             }
         } finally {
             try {
                 connection.setAutoCommit(true);
             } catch (SQLException e) {
-                e.printStackTrace();
+                System.out.println(e.getMessage());
             }
         }
     }
@@ -71,13 +67,10 @@ public class AccountManager {
         scanner.nextLine();
         System.out.println("Enter your pin: ");
         int pin = scanner.nextInt();
-        String query = "SELECT balance FROM accounts WHERE account_no = ? AND pin = ?";
-        String debitQuery = "UPDATE accounts SET balance = balance - ? WHERE account_no = ?";
-
         try {
             connection.setAutoCommit(false);
             if (account_no!=0){
-                PreparedStatement statement = connection.prepareStatement(query);
+                PreparedStatement statement = connection.prepareStatement(Queries.SELECT_BALANCE_BY_NO_AND_PIN);
                 statement.setLong(1,account_no);
                 statement.setInt(2,pin);
                 ResultSet result = statement.executeQuery();
@@ -85,7 +78,7 @@ public class AccountManager {
                 if(result.next()){
                     double balance = result.getDouble("balance");
                     if(balance>=amount){
-                        PreparedStatement debitStatement = connection.prepareStatement(debitQuery);
+                        PreparedStatement debitStatement = connection.prepareStatement(Queries.DEBIT_AMOUNT);
                         debitStatement.setDouble(1,amount);
                         debitStatement.setLong(2,account_no);
                         int rows = debitStatement.executeUpdate();
@@ -107,7 +100,7 @@ public class AccountManager {
             }
 
         }catch (SQLException e) {
-            e.printStackTrace();
+            System.out.println(e.getMessage());
         }
 
     }
@@ -123,14 +116,10 @@ public class AccountManager {
         scanner.nextLine();
         System.out.println("Enter your pin: ");
         int pin = scanner.nextInt();
-        String query = "SELECT balance FROM accounts WHERE account_no = ? AND pin = ?";
-        String debitQuery = "UPDATE accounts SET balance = balance - ? WHERE account_no = ?";
-        String creditQuery = "UPDATE accounts SET balance = balance + ? WHERE account_no = ?";
-
         try {
             connection.setAutoCommit(false);
             if (sender_account_no!=0 && transferAccount!=0){
-                PreparedStatement statement = connection.prepareStatement(query);
+                PreparedStatement statement = connection.prepareStatement(Queries.SELECT_BALANCE_BY_NO_AND_PIN);
                 statement.setLong(1,sender_account_no);
                 statement.setInt(2,pin);
                 ResultSet result = statement.executeQuery();
@@ -138,12 +127,12 @@ public class AccountManager {
                 if(result.next()){
                     double balance = result.getDouble("balance");
                     if(balance>=amount){
-                        PreparedStatement debitStatement = connection.prepareStatement(debitQuery);
+                        PreparedStatement debitStatement = connection.prepareStatement(Queries.DEBIT_AMOUNT);
                         debitStatement.setDouble(1,amount);
                         debitStatement.setLong(2,sender_account_no);
                         int debitRows = debitStatement.executeUpdate();
                         if(debitRows>0){
-                            PreparedStatement creditStatement = connection.prepareStatement(creditQuery);
+                            PreparedStatement creditStatement = connection.prepareStatement(Queries.CREDIT_AMOUNT);
                             creditStatement.setDouble(1,amount);
                             creditStatement.setLong(2,transferAccount);
                             int creditRows = creditStatement.executeUpdate();
@@ -170,7 +159,7 @@ public class AccountManager {
             }
 
         }catch (SQLException e) {
-            e.printStackTrace();
+            System.out.println(e.getMessage());
         }
     }
 
@@ -180,9 +169,8 @@ public class AccountManager {
     public void getBalance(long account_no){
         System.out.println("Enter your pin: ");
         int pin = scanner.nextInt();
-        String query = "SELECT balance FROM accounts WHERE account_no = ? AND pin = ?";
         try {
-            PreparedStatement statement = connection.prepareStatement(query);
+            PreparedStatement statement = connection.prepareStatement(Queries.SELECT_BALANCE_BY_NO_AND_PIN);
             statement.setLong(1,account_no);
             statement.setInt(2,pin);
             ResultSet result = statement.executeQuery();
@@ -193,7 +181,7 @@ public class AccountManager {
                 System.out.println("Invalid Security Pin!");
             }
         }catch (SQLException e) {
-            e.printStackTrace();
+            System.out.println(e.getMessage());
         }
     }
 
