@@ -72,18 +72,24 @@ public class Accounts {
     }
 
 
-public long generateAccountNo(){
-    try {
-        var statement = connection.prepareStatement(Queries.GENERATE_ACCOUNT_NO);
-        var result = statement.executeQuery();
-        if (result.next()) {
-            return result.getLong(1) + 1;
+    public long generateAccountNo() {
+        try {
+            // Ensure the SQL query returns the maximum account number, or 999999999 if none exist
+            var statement = connection.prepareStatement(Queries.GENERATE_ACCOUNT_NO);
+            var result = statement.executeQuery();
+
+            // If an account number exists, increment it by 1, otherwise start from 1000000000
+            if (result.next()) {
+                long currentMaxAccountNo = result.getLong(1);
+                return Math.max(currentMaxAccountNo + 1, 1000000000);
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
         }
-    } catch (Exception e) {
-        System.out.println(e.getMessage());
+        // Default starting account number if the query fails or no account number is present
+        return 1000000000;
     }
-    return 1000000000;
-}
+
 
     public boolean accountExists(long account_no) {
 
