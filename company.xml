@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<company>
+    <employee id="101">
+        <name>John Doe</name>
+        <role>Developer</role>
+        <salary>75000</salary>
+        <age>29</age>
+        <phone>123-456-7890</phone>
+        <address>123 Main St, Cityville</address>
+    </employee>
+    <employee id="102">
+        <name>Jane Smith</name>
+        <role>Manager</role>
+        <salary>90000</salary>
+        <age>35</age>
+        <phone>987-654-3210</phone>
+        <address>456 Elm St, Townsville</address>
+    </employee>
+
+    <employee id="103">
+        <name>John Smith</name>
+        <role>Developer</role>
+        <salary>80000</salary>
+        <age>30</age>
+        <phone>123-456-7890</phone>
+        <address>123 Main St, Cityville</address>
+    </employee>
+
+    <employee id="104">
+        <name>Jane Doe</name>
+        <role>Manager</role>
+        <salary>95000</salary>
+        <age>36</age>
+        <phone>987-654-3210</phone>
+        <address>456 Elm St, Townsville</address>
+    </employee>
+</company>

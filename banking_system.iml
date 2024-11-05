@@ -8,5 +8,7 @@
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="mysql-connector-j-9.1.0" level="project" />
+    <orderEntry type="library" name="snakeyaml-2.0" level="project" />
+    <orderEntry type="library" name="opencsv-4.1" level="project" />
   </component>
 </module>

@@ -36,8 +36,22 @@ public class StreamTest {
 
          List<Integer> list = Arrays.asList(1, 2, 3, 4, 5);
         List<Integer> collect = list.stream()
-                .map(n -> n * n).collect(Collectors.toList());
+                .map(n -> n * n).sorted((a,b)->(b-a)).collect(Collectors.toList());
         System.out.println(collect);
+
+        List<Integer> collect1 = Stream.iterate(0, n -> n + 1)
+                .limit(101).skip(1).collect(Collectors.toList());
+        System.out.println(collect1);
+
+
+        int[] numbers1 = {1, 2, 3, 4, 5,1,6,7,8,9,10,2};
+        List<Integer> collect2 = Arrays.stream(numbers1).distinct().boxed().toList();
+        System.out.println(collect2);
+
+
+        List<Integer> vale = Arrays.asList(1, 2, 3, 4, 5,12,26,56,78,98,100);
+        List<Integer> collect3 = vale.parallelStream().map(x->x*2).collect(Collectors.toList());
+        System.out.println(collect3);
 
 
     }

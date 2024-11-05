@@ -1,0 +1,147 @@
+!!com.ymalexercise.EmployeeList
+employees:
+- age: 30
+  id: E101
+  name: Alice Smith
+  role: Software Engineer
+  salary: 85000.0
+  skills:
+  - Java
+  - Spring Boot
+  - SQL
+  - REST APIs
+- age: 35
+  id: E102
+  name: Bob Johnson
+  role: DevOps Engineer
+  salary: 90000.0
+  skills:
+  - Docker
+  - Kubernetes
+  - AWS
+  - CI/CD
+- age: 28
+  id: E103
+  name: Charlie Brown
+  role: Data Scientist
+  salary: 95000.0
+  skills:
+  - Python
+  - TensorFlow
+  - Pandas
+  - Machine Learning
+- age: 40
+  id: E104
+  name: Dana White
+  role: Project Manager
+  salary: 105000.0
+  skills:
+  - Agile
+  - Scrum
+  - Risk Management
+  - Communication
+- age: 25
+  id: E105
+  name: Eve Adams
+  role: Frontend Developer
+  salary: 80000.0
+  skills:
+  - JavaScript
+  - React
+  - CSS
+  - HTML
+- age: 32
+  id: E106
+  name: Frank Lee
+  role: Backend Developer
+  salary: 78000.0
+  skills:
+  - Java
+  - Spring
+  - PostgreSQL
+- age: 32
+  id: E106
+  name: Frank Lee
+  role: Backend Developer
+  salary: 78000.0
+  skills:
+  - Java
+  - Spring
+  - PostgreSQL
+- age: 32
+  id: E107
+  name: John Lee
+  role: Backend Developer
+  salary: 78000.0
+  skills:
+  - Java
+  - Spring
+  - PostgreSQL
+- age: 32
+  id: E107
+  name: John Lee
+  role: Backend Developer
+  salary: 78000.0
+  skills:
+  - Java
+  - Spring
+  - PostgreSQL
+- age: 32
+  id: E108
+  name: John Lee
+  role: Backend Developer
+  salary: 78000.0
+  skills:
+  - Java
+  - Spring
+  - PostgreSQL
+  - Flutter
+- age: 32
+  id: E106
+  name: Frank Lee
+  role: Backend Developer
+  salary: 78000.0
+  skills:
+  - Java
+  - Spring
+  - PostgreSQL
+- age: 32
+  id: E109
+  name: Love Lee
+  role: Backend Developer
+  salary: 78000.0
+  skills:
+  - Java
+  - Spring
+  - PostgreSQL
+  - Flutter
+- age: 32
+  id: E109
+  name: Love Lee
+  role: Backend Developer
+  salary: 78000.0
+  skills:
+  - Java
+  - Spring
+  - PostgreSQL
+  - Flutter
+- age: 32
+  id: E110
+  name: John Lee
+  role: Backend Developer
+  salary: 78000.0
+  skills:
+  - Java
+  - Spring
+  - PostgreSQL
+  - Flutter
+- age: 32
+  id: E111
+  name: John Lee
+  role: Backend Developer
+  salary: 78000.0
+  skills:
+  - Java
+  - Spring
+  - PostgreSQL
+  - Flutter
